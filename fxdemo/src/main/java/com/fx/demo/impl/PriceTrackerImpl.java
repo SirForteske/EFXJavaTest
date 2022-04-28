@@ -1,6 +1,7 @@
 package com.fx.demo.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,14 +22,15 @@ public class PriceTrackerImpl implements PriceTracker {
         this.priceParser = priceParser;
         this.bidMargin = bidMargin;
         this.askMargin = askMargin;
+
+        latestPrices = new HashMap<>();
     }
 
     @Override
     public void onMessage(String message) {
         List<Price> prices = priceParser.parse(message);
-
-        latestPrices = prices.stream()
-        .collect(Collectors.toMap(Price::id, price -> new CommissionedPriceImpl(price, bidMargin, askMargin)));
+        
+        prices.forEach(price -> latestPrices.put(price.id(), new CommissionedPriceImpl(price, bidMargin, askMargin)));
     }
 
     @Override

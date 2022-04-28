@@ -11,6 +11,7 @@ import com.fx.demo.PriceParser;
 
 public class CSVPriceParserImpl implements PriceParser {
 
+    private static final String REGEX_PRICE_ENDLINE = "\\r?\\n";
     private static final String REGEX_PRICE_SEPARATOR = ",";
     private static final short PRICE_PART_ID = 0;
     private static final short PRICE_PART_INSTRUMENT = 1;
@@ -33,7 +34,7 @@ public class CSVPriceParserImpl implements PriceParser {
         if(csv == null || csv.isEmpty())
             throw new IllegalArgumentException("'csv' argument must have a value.");
 
-        String[] priceLines = csv.split("\n");
+        String[] priceLines = csv.split(REGEX_PRICE_ENDLINE);
         List<Price> prices = new ArrayList<>();
 
         for(String priceLine : priceLines)
