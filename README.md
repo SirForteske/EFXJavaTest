@@ -1,4 +1,5 @@
 # EFXJavaTest
+When executing the app, you can pass as many paths to CSV files as you want as arguments.
 
 # ASSUMPTIONS
 For this test I have made the followign assumptions:
